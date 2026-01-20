@@ -110,6 +110,7 @@ class AutomationGUI(tk.Tk):
         ttk.Button(frame, text="Exp Success", command=self.export_success).grid(row=0, column=8, padx=5)
         ttk.Button(frame, text="Exp All", command=self.export_all).grid(row=0, column=9, padx=5)
         ttk.Button(frame, text="Exp Fail", command=self.export_fail).grid(row=0, column=10, padx=5)
+        ttk.Button(frame, text="Export No Success", command=self.export_no_success).grid(row=0, column=11, padx=5)
 
     def browse_file(self):
         path = filedialog.askopenfilename(filetypes=[("Text", "*.txt"), ("All", "*.*")])
@@ -309,6 +310,8 @@ class AutomationGUI(tk.Tk):
     def export_success(self): self._export(lambda n: "success" in str(n).lower())
     def export_all(self): self._export(lambda n: True)
     def export_fail(self): self._export(lambda n: "fail" in str(n).lower() or "error" in str(n).lower())
+    def export_no_success(self):
+        self._export(lambda n: ("fail" in str(n).lower() or "error" in str(n).lower() or "running" in str(n).lower() or "checking" in str(n).lower()))
     def _export(self, cond):
         rows = [self.tree.item(i, "values") for i in self.tree.get_children() if cond(self.tree.item(i, "values")[-1])]
         if not rows: messagebox.showinfo("Info", "No rows."); return
