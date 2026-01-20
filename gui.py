@@ -285,7 +285,8 @@ class AutomationGUI(tk.Tk):
                         # Cập nhật cột USER (index 2) nếu tìm thấy user
                         if found_user:
                             v[2] = found_user
-                        
+                        # Cập nhật PASS IG (index 3) = PASS MAIL (index 6)
+                        v[3] = v[6]
                         tag = "success" # Tag này đã được config màu xanh lá
                         self.success_count += 1
                     else:
